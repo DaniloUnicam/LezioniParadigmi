@@ -26,7 +26,7 @@ namespace Unicam.Paradigmi.Test.Examples
             //Rileggo il json dal file system
             string jsonValue = System.IO.File.ReadAllText(destinationPath);
             var listReaderFromDisk = JsonConvert.DeserializeObject<List<Alunno>>(jsonValue,jsonSerializerSettings);
-            Console.ReadLine();
+  
         }
 
         private List<Alunno> GetAlunni()

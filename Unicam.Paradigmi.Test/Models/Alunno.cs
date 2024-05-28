@@ -10,6 +10,7 @@ namespace Unicam.Paradigmi.Test.Models
 {
     public class Alunno
     {
+
         public Alunno()
         {
 
