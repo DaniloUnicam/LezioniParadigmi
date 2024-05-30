@@ -13,7 +13,7 @@ namespace Unicam.Paradigmi.Test.Examples
         public void RunExample()
         {
             using (var connection = new SqlConnection()) { 
-                connection.ConnectionString = "Server=localhost;Database=Paradigmi;User Id=paradigmi;Password=paradigmi;";
+                connection.ConnectionString = "Server=PCDANI;Database=Paradigmi;User Id=paradigmi;Password=paradigmi;";
                 connection.Open();
                 var cmd = new SqlCommand();
                 cmd.Connection = connection;
