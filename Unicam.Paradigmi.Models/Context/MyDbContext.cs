@@ -21,7 +21,7 @@ namespace Unicam.Paradigmi.Models.Context
         {
             optionsBuilder.
                 //Il lazy loading viene utilizzato in caso di Lazy Loading del contesto
-                UseLazyLoadingProxies().
+                //UseLazyLoadingProxies().
                 UseSqlServer("data source=localhost;Initial catalog= paradigmi;User Id=paradigmi;Password=paradigmi;");
         }
 

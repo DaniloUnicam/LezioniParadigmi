@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Unicam.Paradigmi.Abstractions;
 using Unicam.Paradigmi.Models.Context;
+using Unicam.Paradigmi.Models.Repositories;
 using Unicam.Paradigmi.Test.Models;
 
 namespace Unicam.Paradigmi.Test.Examples
@@ -36,14 +37,14 @@ namespace Unicam.Paradigmi.Test.Examples
                 .Where(w => w.IdDipendente == 1).First();
 
             ctx.Entry(dipendente)
-                .Reference(i => i.AziendaDoveLavora)
+                .Reference(i => i.Azienda)
                 .Load();
         }
 
         private void LoadWithEagerLoading(MyDbContext ctx)
         {
             var dipendente = ctx.Dipendenti
-                .Include(x => x.AziendaDoveLavora)
+                .Include(x => x.Azienda)
                 .Where(w => w.IdDipendente == 1).First();
         }
 
@@ -52,7 +53,7 @@ namespace Unicam.Paradigmi.Test.Examples
             var dipendente = ctx.Dipendenti
                 .Where(w => w.IdDipendente == 1).First();
 
-            var nomeCittaAzienda = dipendente.AziendaDoveLavora.Citta;
+            var nomeCittaAzienda = dipendente.Azienda.Citta;
         }
 
         private void UpdateConLettura(MyDbContext ctx)

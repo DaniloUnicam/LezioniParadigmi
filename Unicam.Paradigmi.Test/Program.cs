@@ -11,7 +11,7 @@ var examples = new List<IExample>();
 //examples.Add(new InizialializzazioneClassiExample());
 //examples.Add(new GestioneEventiExample());
 //examples.Add(new JsonSerializerExample());
-examples.Add(new EntityFrameworkExample());
+examples.Add(new RepositoryExample());
 examples.Add(new AdoNetExample());
 
 

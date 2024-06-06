@@ -17,7 +17,7 @@ namespace Unicam.Paradigmi.Test.Models
 
         public string Cap {  get; set; }
 
-        public ICollection<Dipendente> Dipendenti {  get; set; }
+        public virtual ICollection<Dipendente> Dipendenti {  get; set; }
 
         //virtual se uso lazyloading
         //public virtual ICollection<Dipendente> Dipendenti { get; set; }

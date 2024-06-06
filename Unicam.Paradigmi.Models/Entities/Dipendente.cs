@@ -19,7 +19,7 @@ namespace Unicam.Paradigmi.Models.Entities
 
         public DateTime DataNascita { get; set; }
 
-        public Azienda AziendaDoveLavora { get; set; }
+        public virtual Azienda Azienda { get; set; }
 
         //virtual se uso LazyLoading
         //public virtual Azienda AziendaDoveLavora { get; set; }
