@@ -14,6 +14,13 @@ namespace Unicam.Paradigmi.Models.Configurations
         {
             builder.ToTable("Dipendenti");
             builder.HasKey(k => k.IdDipendente);
+            //Il dipendente ha un'azienda dove lavora
+            builder.HasOne(x => x.AziendaDoveLavora)
+                //WithMany è una relazione uno a molti
+                //L'azienda contiene più dipendenti
+                .WithMany(x => x.Dipendenti);
+                //L'azienda avrà una chiave esterna sull'id dell'azienda
+                //.HasForeignKey(x => x.IdAzienda);
         }
     }
 }

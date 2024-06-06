@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unicam.Paradigmi.Models.Entities;
 
 namespace Unicam.Paradigmi.Test.Models
 {
@@ -15,6 +16,13 @@ namespace Unicam.Paradigmi.Test.Models
         public string Citta { get; set; }
 
         public string Cap {  get; set; }
+
+        public ICollection<Dipendente> Dipendenti {  get; set; }
+
+        //virtual se uso lazyloading
+        //public virtual ICollection<Dipendente> Dipendenti { get; set; }
+
+
 
 
     }

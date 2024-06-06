@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unicam.Paradigmi.Test.Models;
 
 namespace Unicam.Paradigmi.Models.Entities
 {
@@ -18,6 +19,10 @@ namespace Unicam.Paradigmi.Models.Entities
 
         public DateTime DataNascita { get; set; }
 
+        public Azienda AziendaDoveLavora { get; set; }
+
+        //virtual se uso LazyLoading
+        //public virtual Azienda AziendaDoveLavora { get; set; }
 
     }
 }

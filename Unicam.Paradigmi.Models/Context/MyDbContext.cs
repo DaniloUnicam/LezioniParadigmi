@@ -19,7 +19,10 @@ namespace Unicam.Paradigmi.Models.Context
         //in questo modo, quando verrà creato un contesto, gli sarà detto di utilizzare sqlserver
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("data source=localhost;Initial catalog= paradigmi;User Id=paradigmi;Password=paradigmi;");
+            optionsBuilder.
+                //Il lazy loading viene utilizzato in caso di Lazy Loading del contesto
+                UseLazyLoadingProxies().
+                UseSqlServer("data source=localhost;Initial catalog= paradigmi;User Id=paradigmi;Password=paradigmi;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

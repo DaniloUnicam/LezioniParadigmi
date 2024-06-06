@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,43 @@ namespace Unicam.Paradigmi.Test.Examples
         public void RunExample()
         {
             var ctx = new MyDbContext();
+            //LoadWithExplicitLoading(ctx);
+            //LoadWithEagerLoading(ctx);
+            //LoadWithLazyLoading(ctx);
             //questa è una query che farà il select di tutte le aziende con i loro record
-            var aziende = ctx.Aziende.ToList();
+            //var aziende = ctx.Aziende.ToList();
+
             //QueryDiFiltro(ctx);
             //AddAzienda(ctx);
             //EditAziendaCompleta(ctx);
             //EditProprietaAzienda(ctx);
             //DeleteAzienda(ctx);
             //UpdateConLettura(ctx);
+        }
+
+        private void LoadWithExplicitLoading(MyDbContext ctx)
+        {
+            var dipendente = ctx.Dipendenti.ToList()
+                .Where(w => w.IdDipendente == 1).First();
+
+            ctx.Entry(dipendente)
+                .Reference(i => i.AziendaDoveLavora)
+                .Load();
+        }
+
+        private void LoadWithEagerLoading(MyDbContext ctx)
+        {
+            var dipendente = ctx.Dipendenti
+                .Include(x => x.AziendaDoveLavora)
+                .Where(w => w.IdDipendente == 1).First();
+        }
+
+        private void LoadWithLazyLoading(MyDbContext ctx)
+        {
+            var dipendente = ctx.Dipendenti
+                .Where(w => w.IdDipendente == 1).First();
+
+            var nomeCittaAzienda = dipendente.AziendaDoveLavora.Citta;
         }
 
         private void UpdateConLettura(MyDbContext ctx)
