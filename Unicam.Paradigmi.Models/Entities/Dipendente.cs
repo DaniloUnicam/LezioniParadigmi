@@ -9,6 +9,14 @@ namespace Unicam.Paradigmi.Models.Entities
 {
     public class Dipendente
     {
+
+        public Dipendente() { }
+
+        public Dipendente(Azienda aziendaDoveLavora)
+        {
+            AziendaDoveLavora = aziendaDoveLavora;
+        }
+
         public int IdDipendente { get; set; }
 
         public int IdAzienda { get; set; }
@@ -19,7 +27,7 @@ namespace Unicam.Paradigmi.Models.Entities
 
         public DateTime DataNascita { get; set; }
 
-        public virtual Azienda Azienda { get; set; }
+        public virtual Azienda AziendaDoveLavora { get; set; }
 
         //virtual se uso LazyLoading
         //public virtual Azienda AziendaDoveLavora { get; set; }

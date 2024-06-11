@@ -37,14 +37,14 @@ namespace Unicam.Paradigmi.Test.Examples
                 .Where(w => w.IdDipendente == 1).First();
 
             ctx.Entry(dipendente)
-                .Reference(i => i.Azienda)
+                .Reference(i => i.AziendaDoveLavora)
                 .Load();
         }
 
         private void LoadWithEagerLoading(MyDbContext ctx)
         {
             var dipendente = ctx.Dipendenti
-                .Include(x => x.Azienda)
+                .Include(x => x.AziendaDoveLavora)
                 .Where(w => w.IdDipendente == 1).First();
         }
 
@@ -53,7 +53,7 @@ namespace Unicam.Paradigmi.Test.Examples
             var dipendente = ctx.Dipendenti
                 .Where(w => w.IdDipendente == 1).First();
 
-            var nomeCittaAzienda = dipendente.Azienda.Citta;
+            var nomeCittaAzienda = dipendente.AziendaDoveLavora.Citta;
         }
 
         private void UpdateConLettura(MyDbContext ctx)

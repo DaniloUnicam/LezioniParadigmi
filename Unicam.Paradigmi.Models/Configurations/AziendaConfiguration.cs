@@ -23,7 +23,7 @@ namespace Unicam.Paradigmi.Models.Configurations
              *e ciò che è persistito sul nostro ATTUALE database (qualsiasi quindi) */
 
             builder.ToTable("Aziende");
-            builder.HasKey(p => p.IdAzienda);
+            builder.HasKey(p => p.IdAzienda).HasName("p");
             builder.Property(p => p.RagioneSociale).HasMaxLength(100);
         }
     }

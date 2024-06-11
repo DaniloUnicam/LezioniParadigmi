@@ -15,16 +15,17 @@ namespace Unicam.Paradigmi.Models.Repositories
             _ctx = ctx;
         }
 
-        public void Aggiungi<T>(T entity)
+        public void Aggiungi(T entity)
         {
-            _ctx.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+            _ctx.Set<T>().Add(entity);
+            //_ctx.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Added;
         }
 
-        public void Modifica<T>(T entity)
+        public void Modifica(T entity)
         {
             _ctx.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
-        
+
 
         public T Ottieni(Object id)
         {
