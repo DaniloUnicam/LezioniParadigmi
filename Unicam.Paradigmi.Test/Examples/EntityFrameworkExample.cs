@@ -1,19 +1,50 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Unicam.Paradigmi.Abstractions;
 using Unicam.Paradigmi.Models.Context;
-using Unicam.Paradigmi.Models.Repositories;
+using Unicam.Paradigmi.Models.Entities;
 using Unicam.Paradigmi.Test.Models;
 
 namespace Unicam.Paradigmi.Test.Examples
 {
     public class EntityFrameworkExample : IExample
     {
+
+        public EntityFrameworkExample() {
+            DbContext = new MyDbContext();
+        }
+
+        public MyDbContext DbContext { get; set; }
+        public async Task RunExampleAsync()
+        {
+            var dipendente = await GetDipendenteByCognomeAsync("Paoloni");
+            var azienda = await GetAziendaByIdAsync(1);
+            var nuovaAzienda = new Azienda()
+            {
+                Cap = "12345",
+                Citta = "Macerata",
+                RagioneSociale = "Prova Inserimento"
+            };
+            await AddAziendaAsync(nuovaAzienda);
+        }
+
+        public async Task<Dipendente> GetDipendenteByCognomeAsync(string cognome)
+        {
+            return await DbContext.Dipendenti.Where(cognomeInterno => cognomeInterno.Cognome == cognome).FirstAsync();
+        }
+
+        public async Task<Azienda> GetAziendaByIdAsync(int id)
+        {
+            return await DbContext.Aziende.Where(idInterno => idInterno.IdAzienda == id).FirstAsync();
+        }
+
+        public async Task AddAziendaAsync(Azienda azienda)
+        {
+            await DbContext.Aziende.AddAsync(azienda);
+            await DbContext.SaveChangesAsync();
+        }
+
+
+
         public void RunExample()
         {
             var ctx = new MyDbContext();

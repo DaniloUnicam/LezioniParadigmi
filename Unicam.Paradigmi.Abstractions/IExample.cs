@@ -9,5 +9,8 @@ namespace Unicam.Paradigmi.Abstractions
     public interface IExample
     {
         void RunExample();
+
+        //Async è solo una naming convenction
+        Task RunExampleAsync();
     }
 }

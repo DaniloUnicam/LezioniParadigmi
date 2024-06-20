@@ -8,6 +8,10 @@ namespace Unicam.Paradigmi.Test.Examples
 {
     public class RepositoryExample : IExample
     {
+        public async Task RunExampleAsync()
+        {
+
+        }
 
         public void RunExample()
         {

@@ -27,10 +27,7 @@ namespace Unicam.Paradigmi.Models.Repositories
         }
 
 
-        public T Ottieni(Object id)
-        {
-            return _ctx.Set<T>().Find(id);
-        }
+        public T Ottieni(Object id) => _ctx.Set<T>().Find(id);
 
         public void Elimina(Object id)
         {

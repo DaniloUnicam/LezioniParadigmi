@@ -12,10 +12,14 @@ namespace Unicam.Paradigmi.Test.Examples
 {
     public class AdoNetExample : IExample
     {
+        public async Task RunExampleAsync()
+        {
+
+        }
         public void RunExample()
         {
             GetAziende();
-        }
+        }        
 
         private List<Azienda> GetAziende()
         {
