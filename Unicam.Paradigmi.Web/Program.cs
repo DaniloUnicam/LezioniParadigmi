@@ -2,6 +2,12 @@ using Unicam.Paradigmi.Application.Services;
 using Unicam.Paradigmi.Application.Middlewares;
 using Unicam.Paradigmi.Application.Abstractions.Services;
 using Unicam.Paradigmi.Application.Options;
+using Unicam.Paradigmi.Models.Repositories;
+using Unicam.Paradigmi.Models.Context;
+using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +21,26 @@ builder.Services.AddEndpointsApiExplorer();
 //AddSwaggerGen è il servizio che si occupa di generare l'endpoint che serve
 //a swagger a dire quali sono le api che esistono all'interno del progetto
 builder.Services.AddSwaggerGen();
+//validazione per ogni singolo ogetto che dobbiamo validare (con i campi obbligatori)
+//di norma si creano i DTO per far sì che ogni singolo oggetto abbia solo una validazione
+builder.Services.AddFluentValidationAutoValidation();
+//con questo comando andremo a prendere tutte le assembly (librerie) nel percorso .Application, con
+//una validazione all'interno
+//I validatori che sono riconosciuti dalla dependency injection che riescono ad effettuare
+//la validazione automatica sono tutti quelli che si trovano dentro la nostra unicam.paradigmi.application
+builder.Services.AddValidatorsFromAssembly(AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault
+    (assembly => assembly.GetName().Name == "Unicam.Paradigmi.Application"));
+//ora aggiungo MyDbContext come servizio, altrimenti l'entity framework non verrà riconosciuto
+//all'aggiunzione di AziendaRepository come servizio
+builder.Services.AddDbContext<MyDbContext>(conf =>
+{
+    conf.UseSqlServer("data source=localhost;Initial catalog= paradigmi;User Id=paradigmi;Password=paradigmi;");
+});
 //AddScoped è un metodo che permette di creare un'istanza di un oggetto
 //per ogni richiesta che arriva al server HTTP
 //IAziendaService deve essere risolto con un'istanza di AziendaService
 builder.Services.AddScoped<IAziendaService, AziendaService>();
+builder.Services.AddScoped<AziendaRepository>();
 
 /*Singleton = istanza globale di un singolo oggetto
  * builder.Services.AddSingleton

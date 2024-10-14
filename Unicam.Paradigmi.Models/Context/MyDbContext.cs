@@ -12,6 +12,15 @@ namespace Unicam.Paradigmi.Models.Context
 {
     public class MyDbContext : DbContext
     {
+        public MyDbContext()
+        {
+            
+        }
+
+        public MyDbContext(DbContextOptions<MyDbContext> config) : base(config)
+        {
+            
+        }
         public DbSet<Azienda> Aziende {  get; set; }
 
         public DbSet<Dipendente> Dipendenti { get; set; }

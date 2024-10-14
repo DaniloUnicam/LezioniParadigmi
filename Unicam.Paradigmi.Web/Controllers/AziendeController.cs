@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Unicam.Paradigmi.Application.Abstractions.Services;
+using Unicam.Paradigmi.Application.Models.Requests;
+using Unicam.Paradigmi.Application.Models.Responses;
+using Unicam.Paradigmi.Application.Validators;
+using Unicam.Paradigmi.Models.Repositories;
 using Unicam.Paradigmi.Test.Models;
 
 namespace Unicam.Paradigmi.Web.Controllers
@@ -8,38 +13,40 @@ namespace Unicam.Paradigmi.Web.Controllers
     [Route("api/v1/[controller]")]
     public class AziendeController : ControllerBase
     {
-        public List<Azienda> aziende = new List<Azienda>();
 
-        public AziendeController() {
-            this.aziende.Add(new Azienda()
-            {
-                IdAzienda = 1,
-                Citta = "Tolentino",
-                RagioneSociale = "PCSNET",
-                Cap = "54321"
-            });
+        public readonly IAziendaService _aziendaService;
 
+        public AziendeController(IAziendaService aziendaService) {
+            this._aziendaService = aziendaService;
         }
 
         [HttpGet]
         [Route("list")]
         public IEnumerable<Azienda> GetAziende()
         {
-            return aziende;
+            return this._aziendaService.GetAziende();
         }
 
         [HttpGet]
         //id:int significa che prenderà il parametro dal body (del metodo) nome id, tipo int
         [Route("get/{id:int}")]
         public Azienda getAzienda(int id) {
-            return aziende.Where(w => w.IdAzienda == id).First();
+            return _aziendaService.GetAzienda(id);
         }
 
+        //tramite [FromBody], forzo il metodo nel prendere il body dal parametro
         [HttpPost]
         [Route("new")]
-        public IActionResult CreateAzienda([FromBody]Azienda azienda)
+        public IActionResult CreateAzienda(CreateAziendaRequest request)
         {
-            return Ok();
+            var validator = new CreateAziendaRequestValidator();
+            validator.Validate(request);
+            var azienda = request.toEntity();
+            _aziendaService.AddAzienda(azienda);
+
+            var response = new CreateAziendaResponse();
+            response.Azienda = new Application.Models.Dtos.AziendaDTO(azienda);
+            return Ok(response);
         }
     }
 }
