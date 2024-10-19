@@ -23,7 +23,7 @@ namespace Unicam.Paradigmi.Application.Services
 
         public List<Azienda> GetAziende()
         {
-            return new List<Azienda>();
+            return _aziendaRepository.OttieniTutti();
         }
 
         //potevo dichiarare void, per poi lanciare un'eccezione che avrà un costo, anche

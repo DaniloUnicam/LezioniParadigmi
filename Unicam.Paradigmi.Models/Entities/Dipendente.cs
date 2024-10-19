@@ -10,7 +10,13 @@ namespace Unicam.Paradigmi.Models.Entities
     public class Dipendente
     {
 
-        public Dipendente() { }
+        public Dipendente() 
+        {
+            Nome = string.Empty;
+            Cognome = string.Empty;
+            DataNascita = new DateTime();
+            AziendaDoveLavora = new Azienda();
+        }
 
         public Dipendente(Azienda aziendaDoveLavora)
         {
